@@ -1,0 +1,174 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        /* General Styling */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #1e3c72, #2a5298);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            font-size: 30px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            color: #00eaff;
+            text-shadow: 0px 0px 8px rgba(0, 234, 255, 0.8);
+        }
+
+        /* Button Styling */
+        .btn {
+            background: linear-gradient(90deg, #00eaff, #007bff);
+            color: white;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: 0.3s;
+            margin: 10px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: linear-gradient(90deg, #007bff, #00eaff);
+        }
+
+        .btn-danger {
+            background: linear-gradient(90deg, #ff4b2b, #ff416c);
+        }
+
+        .btn-danger:hover {
+            background: linear-gradient(90deg, #ff416c, #ff4b2b);
+        }
+
+        /* Table Styling */
+        table {
+            width: 90%;
+            max-width: 1000px;
+            border-collapse: collapse;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            text-transform: uppercase;
+        }
+
+        tr {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        tr:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Action Buttons */
+        .action-btns {
+            display: flex;
+            gap: 10px;
+        }
+
+        .edit-btn, .delete-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .edit-btn {
+            background: #28a745;
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background: #218838;
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background: #b02a37;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            table {
+                width: 100%;
+            }
+
+            .action-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <h2>📚 Admin Dashboard</h2>
+
+    <!-- Add & Logout Buttons -->
+    <a href="{% url 'add_book' %}" class="btn">➕ Add Book</a>
+    <a href="{% url 'logout' %}" class="btn btn-danger">🚪 Logout</a>
+
+    <!-- Books Table -->
+    <table>
+        <tr>
+            <th>Book Name</th>
+            <th>Author</th>
+            <th>Quantity</th>
+            <th>Actions</th>
+        </tr>
+        {% for book in books %}
+        <tr>
+            <td>{{ book.name }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.quantity }}</td>
+            <td class="action-btns">
+                <a href="{% url 'edit_book' book.id %}">
+                    <button class="edit-btn">✏️ Edit</button>
+                </a>
+                <a href="{% url 'delete_book' book.id %}">
+                    <button class="delete-btn">❌ Delete</button>
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4" style="text-align:center; color:#fff;">No books available</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+</body>
+</html>

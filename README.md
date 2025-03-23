@@ -1,4 +1,4 @@
-# 📚 Libmanage - Library Management System
+## Library Management System
 
 A web-based **Library Management System** designed for seamless book management, borrowing, and user authentication. Built using **Django, MySQL, HTML, CSS, and JavaScript**, it ensures efficient library operations.
 
